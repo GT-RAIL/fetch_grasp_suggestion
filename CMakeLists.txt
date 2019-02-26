@@ -30,7 +30,7 @@ find_package(catkin REQUIRED COMPONENTS
   tf2_ros
 )
 
-find_package(Eigen REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 ################################################
 ## Declare ROS messages, services and actions ##

@@ -170,7 +170,7 @@ void Executor::presetPosition(const fetch_grasp_suggestion::PresetJointsMoveGoal
     arm_group_->setMaxVelocityScalingFactor(MAX_VELOCITY_SCALING_FACTOR);
     return;
   }
-  result.error_code = arm_group_->move();
+  result.error_code = arm_group_->move().val;
   if (result.error_code != moveit_msgs::MoveItErrorCodes::SUCCESS)
   {
     ROS_INFO("Failed to move to preset pose.");
@@ -329,6 +329,7 @@ void Executor::executeGrasp(const fetch_grasp_suggestion::ExecuteGraspGoalConstP
     ros::Duration(0.5).sleep(); //delay for publish to go through
   }
 
+// TODO: Remove this commented out section when we have verified that the code works!
 // <<<<<<< HEAD
 //   //linear move to grasp pose
 //   arm_group_->setStartStateToCurrentState();
@@ -380,7 +381,7 @@ void Executor::executeGrasp(const fetch_grasp_suggestion::ExecuteGraspGoalConstP
   }
 
   //execute the grasp plan
-  move_group_interface::MoveGroup::Plan grasp_plan;
+  moveit::planning_interface::MoveGroupInterface::Plan grasp_plan;
   grasp_plan.trajectory_ = grasp_path.response.solution;
   moveit::core::robotStateToRobotStateMsg(*(arm_group_->getCurrentState()), grasp_plan.start_state_);
   if (execute_grasp_server_.isPreemptRequested())
@@ -393,7 +394,7 @@ void Executor::executeGrasp(const fetch_grasp_suggestion::ExecuteGraspGoalConstP
     execute_grasp_server_.setPreempted(result);
     return;
   }
-  result.error_code = arm_group_->execute(grasp_plan);
+  result.error_code = arm_group_->execute(grasp_plan).val;
   if (result.error_code == moveit_msgs::MoveItErrorCodes::PREEMPTED)
   {
     ROS_INFO("Preempted while moving to executing grasp.");
@@ -546,6 +547,7 @@ void Executor::executeGrasp(const fetch_grasp_suggestion::ExecuteGraspGoalConstP
   }
   else
   {
+// TODO: Remove this commented out section when we have verified that the code works!
 // <<<<<<< HEAD
 //     moveit::planning_interface::MoveGroupInterface::Plan liftPlan;
 //     liftPlan.trajectory_ = lift_path.response.solution;
@@ -573,7 +575,7 @@ void Executor::executeGrasp(const fetch_grasp_suggestion::ExecuteGraspGoalConstP
   }
 
   //execute the lift plan
-  move_group_interface::MoveGroup::Plan lift_plan;
+  moveit::planning_interface::MoveGroupInterface::Plan lift_plan;
   lift_plan.trajectory_ = lift_path.response.solution;
   moveit::core::robotStateToRobotStateMsg(*(arm_group_->getCurrentState()), lift_plan.start_state_);
   if (execute_grasp_server_.isPreemptRequested())
