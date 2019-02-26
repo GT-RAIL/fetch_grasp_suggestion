@@ -244,7 +244,7 @@ topics, services, action clients, and action servers, and parameters are as foll
   `segmentation_topic` param.  This has been deprecated in favor of the service grasp suggestion pipeline, which is
   recommended instead.
 * **Publishers**
-  * `~/grasps`([fetch_grasp_suggestion/RankedGraspList](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/msg/RankedGraspList.msg))
+  * `~/grasps`([fetch_grasp_suggestion/RankedGraspList](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/msg/RankedGraspList.msg))
   (DEPRECATED) Topic for publishing grasps after performing grasp suggestion with
   the action server pipeline.  This has been deprecated in favor of the service grasp suggestion pipeline, which is
   recommended instead.
@@ -252,10 +252,10 @@ topics, services, action clients, and action servers, and parameters are as foll
   * `/executor/clear_objects`([std_srvs/Empty](http://docs.ros.org/api/std_srvs/html/srv/Empty.html))
   Clear collision objects from the scene.  Supports the (optional) grasp executor
   node included in this package.
-  * `/executor/add_object`([fetch_grasp_suggestion/AddObject](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/srv/AddObject.srv))
+  * `/executor/add_object`([fetch_grasp_suggestion/AddObject](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/srv/AddObject.srv))
   Add a collision object to the scene.  Supports the (optional) grasp executor node
   included in this package.
-  * `/classify_all`([fetch_grasp_suggestion/ClassifyAll](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/srv/ClassifyAll.srv))
+  * `/classify_all`([fetch_grasp_suggestion/ClassifyAll](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/srv/ClassifyAll.srv))
   Perform pairwise classification for all pairs of grasps.  Connects to the
   classifier node included in this package.
 * **Service Servers**
@@ -291,7 +291,7 @@ topics, services, action clients, and action servers, and parameters are as foll
   * `/grasp_sampler/rank_grasps_scene`([rail_grasp_calculation_msgs/RankGraspsAction](https://github.com/GT-RAIL/rail_grasp_calculation/blob/master/rail_grasp_calculation_msgs/action/RankGrasps.action))
   Calculate heuristics and rank grasps for a scene using rail_grasp_calculation.
 * **Action Servers**
-  * `~/get_grasp_suggestions`([fetch_grasp_suggestion/SuggestGraspsAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/action/SuggestGrasps.action))
+  * `~/get_grasp_suggestions`([fetch_grasp_suggestion/SuggestGraspsAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/action/SuggestGrasps.action))
   (DEPRECATED) Sample grasps and calculate an initial ranking based on grasp
   heuristics by action server.  This is deprecated in favor of the service implementation `~/suggest_grasps`, which is
   recommended instead.
@@ -310,11 +310,11 @@ topics, services, action clients, and action servers, and parameters are as foll
 #### classifier_node.py
 This node implements the pairwise ranking model and exposes it as a service.
 * **Service Servers**
-  * `~/classify_grasp_pair`([fetch_grasp_suggestion/ClassifyGraspPair](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/srv/ClassifyGraspPair.srv))
+  * `~/classify_grasp_pair`([fetch_grasp_suggestion/ClassifyGraspPair](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/srv/ClassifyGraspPair.srv))
   Perform a single classification for a pair of grasps.  If you're classifying more
   than one grasp, use the `~/classify_all` service instead, as it is very slow to re-instantiate the model for every
   classification instance.
-  * `~/classify_all`([fetch_grasp_suggestion/ClassifyAll](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/srv/ClassifyAll.srv))
+  * `~/classify_all`([fetch_grasp_suggestion/ClassifyAll](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/srv/ClassifyAll.srv))
   Perform pairwise classification on all pairs of grasps, returning a re-ordered
   grasp list as a result.
 * **Parameters**
@@ -340,17 +340,17 @@ interactive marker server implementation for grasp execution and generation of n
 #### executor
 An optional standalone grasp executor for the Fetch robot.  Relevant services and actions are as follows:
 * **Action Servers**
-  * `~/execute_grasp`([fetch_grasp_suggestion/ExecuteGraspAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/action/ExecuteGrasp.action))
+  * `~/execute_grasp`([fetch_grasp_suggestion/ExecuteGraspAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/action/ExecuteGrasp.action))
   Execute a grasp pose, which involves moving to the approach angle, opening the gripper, moving in a straight-line
   trajectory to the grasp pose, closing the gripper, and lifting the object.
-  * `~/prepare_robot`([fetch_grasp_suggestion/PresetMoveAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/action/PresetMove.action))
+  * `~/prepare_robot`([fetch_grasp_suggestion/PresetMoveAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/action/PresetMove.action))
   Move the arm to a "ready to grasp" pose that's out of the way of the camera.
-  * `~/drop_position`([fetch_grasp_suggestion/PresetMoveAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/action/PresetMove.action))
+  * `~/drop_position`([fetch_grasp_suggestion/PresetMoveAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/action/PresetMove.action))
   Move the arm to a predefined position to drop an object.
-  * `~/preset_position`([fetch_grasp_suggestion/PresetMoveAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/action/PresetJointsMove.action))
+  * `~/preset_position`([fetch_grasp_suggestion/PresetMoveAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/action/PresetJointsMove.action))
   Move the arm to a preset position that is defined in the message. The message is a subset of [sensor_msgs/JointState](http://docs.ros.org/indigo/api/sensor_msgs/html/msg/JointState.html) alongwith a velocity scaling factor.
 * **Service Servers**
-  * `~/add_object`([fetch_grasp_suggestion/AddObject](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/srv/AddObject.srv))
+  * `~/add_object`([fetch_grasp_suggestion/AddObject](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/srv/AddObject.srv))
   Add an object to the MoveIt! collision scene.
   * `~/clear_objects`([std_srvs/Empty](http://docs.ros.org/api/std_srvs/html/srv/Empty.html))
   Remove all collision objects from the MoveIt! collision scene.
@@ -364,20 +364,20 @@ An optional standalone grasp executor for the Fetch robot.  Relevant services an
 (DEPRECATED) An optional interactive marker server used for collecting new training examples.  This is deprecated in
 favor of a better interface implementation in fetch_pbd, which is recommended instead.
 * **Subscribers**
-  * `/suggester/grasps`([fetch_grasp_suggestion/RankedGraspList](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/msg/RankedGraspList.msg))
+  * `/suggester/grasps`([fetch_grasp_suggestion/RankedGraspList](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/msg/RankedGraspList.msg))
   Subscriber for newly calculated and ranked grasps, coming from the `suggester`
   node by default.  The topic can be changed by setting the `grasps_topic` parameter.
   * `/rail_segmentation/segmented_objects`([rail_manipulation_msgs/SegmentedObjectList](https://github.com/GT-RAIL/rail_manipulation_msgs/blob/master/msg/SegmentedObjectList.msg))
   Segmented objects subscriber.  Object information is used when generating new
   training examples.  This topic can be changed by setting the `segmentation_topic` parameter.
 * **Service Servers**
-  * `~/cycle_grasps`([fetch_grasp_suggestion/CycleGrasps](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/srv/CycleGrasps.srv))
+  * `~/cycle_grasps`([fetch_grasp_suggestion/CycleGrasps](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/srv/CycleGrasps.srv))
   Advance the currently displayed grasp forward or backward.
 * **Action Clients**
-  * `/executor/execute_grasp`([fetch_grasp_suggestion/ExecuteGraspAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/action/ExecuteGrasp.action))
+  * `/executor/execute_grasp`([fetch_grasp_suggestion/ExecuteGraspAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/action/ExecuteGrasp.action))
   Connection to the standalone grasp `executor` included in this package.
 * **Action Servers**
-  * `~/execute_selected_grasp`([fetch_grasp_suggestion/ExecuteSelectedGraspAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/fetch_grasp_suggestion/action/ExecuteSelectedGraspAction.action))
+  * `~/execute_selected_grasp`([fetch_grasp_suggestion/ExecuteSelectedGraspAction](https://github.com/GT-RAIL/fetch_grasp_suggestion/blob/indigo-devel/action/ExecuteSelectedGraspAction.action))
   Execute the currently selected grasp and create new pairwise training examples
   based on the grasp executed and the grasps seen by the user.
 * **Parameters**
