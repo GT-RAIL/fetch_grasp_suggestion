@@ -253,6 +253,8 @@ void Executor::executeGrasp(const fetch_grasp_suggestion::ExecuteGraspGoalConstP
   transformed_approach_pose.header.frame_id = group_reference_frame;
   tf2::doTransform(wrist_grasp_pose, transformed_approach_pose, from_grasp_transform);
 
+  test1_.publish(transformed_approach_pose);
+
   //plan and move to approach pose
   arm_group_->setPlannerId("arm[RRTConnectkConfigDefault]");
   arm_group_->setPlanningTime(1.5);
