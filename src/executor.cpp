@@ -326,19 +326,11 @@ void Executor::executeGrasp(const fetch_grasp_suggestion::ExecuteGraspGoalConstP
     moveit_msgs::PlanningScene planning_scene_update;
     acm.getMessage(planning_scene_update.allowed_collision_matrix);
     planning_scene_update.is_diff = true;
-    planning_scene_publisher_.publish(planning_scene_update);
+    planning_scene_publisher_.publish(planningng_scene_update);
 
     ros::Duration(0.5).sleep(); //delay for publish to go through
   }
 
-// TODO: Remove this commented out section when we have verified that the code works!
-// <<<<<<< HEAD
-//   //linear move to grasp pose
-//   arm_group_->setStartStateToCurrentState();
-//   arm_group_->setPoseTarget(transformed_grasp_pose, "wrist_roll_link");
-//   result.error_code = arm_group_->move().val;
-//   if (result.error_code != moveit_msgs::MoveItErrorCodes::SUCCESS)
-// =======
   //linear plan to grasp pose
   test1_.publish(transformed_grasp_pose);
   moveit_msgs::GetCartesianPath grasp_path;
@@ -387,7 +379,6 @@ void Executor::executeGrasp(const fetch_grasp_suggestion::ExecuteGraspGoalConstP
   grasp_plan.trajectory_ = grasp_path.response.solution;
   moveit::core::robotStateToRobotStateMsg(*(arm_group_->getCurrentState()), grasp_plan.start_state_);
   if (execute_grasp_server_.isPreemptRequested())
-// >>>>>>> 89d554a... Local updates to the package.
   {
     ROS_INFO("Preempted while executing grasp.");
     result.error_code = moveit_msgs::MoveItErrorCodes::PREEMPTED;
@@ -549,30 +540,6 @@ void Executor::executeGrasp(const fetch_grasp_suggestion::ExecuteGraspGoalConstP
   }
   else
   {
-// TODO: Remove this commented out section when we have verified that the code works!
-// <<<<<<< HEAD
-//     moveit::planning_interface::MoveGroupInterface::Plan liftPlan;
-//     liftPlan.trajectory_ = lift_path.response.solution;
-//     moveit::core::robotStateToRobotStateMsg(*(arm_group_->getCurrentState()), liftPlan.start_state_);
-//     result.error_code = arm_group_->execute(liftPlan).val;
-
-//     arm_group_->setStartStateToCurrentState();
-//     arm_group_->setPoseTarget(transformed_grasp_pose, "wrist_roll_link");
-//     result.error_code = arm_group_->move().val;
-//     if (result.error_code != moveit_msgs::MoveItErrorCodes::SUCCESS)
-//     {
-//       ROS_INFO("Failed to move to lift pose.");
-//       result.success = false;
-//       result.failure_point = fetch_grasp_suggestion::ExecuteGraspResult::PICK_UP_EXECUTION;
-//       execute_grasp_server_.setSucceeded(result);
-//       return;
-//     }
-//   }
-//   moveit::planning_interface::MoveGroupInterface::Plan liftPlan;
-//   liftPlan.trajectory_ = lift_path.response.solution;
-//   moveit::core::robotStateToRobotStateMsg(*(arm_group_->getCurrentState()), liftPlan.start_state_);
-//   result.error_code = arm_group_->execute(liftPlan).val;
-// =======
     ROS_INFO("Succeeded in computing %f of the path to pick up", lift_path.response.fraction);
   }
 
@@ -636,7 +603,6 @@ void Executor::executeGrasp(const fetch_grasp_suggestion::ExecuteGraspGoalConstP
     execute_grasp_server_.setAborted(result);
     return;
   }
-// >>>>>>> 89d554a... Local updates to the package.
 
   //DONE
   result.success = true;
