@@ -326,7 +326,7 @@ void Executor::executeGrasp(const fetch_grasp_suggestion::ExecuteGraspGoalConstP
     moveit_msgs::PlanningScene planning_scene_update;
     acm.getMessage(planning_scene_update.allowed_collision_matrix);
     planning_scene_update.is_diff = true;
-    planning_scene_publisher_.publish(planningng_scene_update);
+    planning_scene_publisher_.publish(planning_scene_update);
 
     ros::Duration(0.5).sleep(); //delay for publish to go through
   }
